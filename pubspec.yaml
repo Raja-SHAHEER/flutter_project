@@ -41,7 +41,10 @@ dependencies:
   provider: ^4.3.3
   fluttertoast: ^8.0.8
   email_validator: ^2.0.1
-
+  syncfusion_flutter_xlsio: ^19.1.64-beta
+  open_file: ^3.2.1
+  universal_html: ^2.0.8
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:

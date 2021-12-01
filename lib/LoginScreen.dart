@@ -1,19 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import 'auth_services.dart';
 
-class MainScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
@@ -23,13 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     emailController.dispose();
     super.dispose();
   }
-  // late FToast fToast;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fToast = FToast();
-  //   fToast.init(context);
-  // }
+
   bool isHidden = false;
   @override
   Widget build(BuildContext context) {
@@ -86,19 +79,20 @@ class _MainScreenState extends State<MainScreen> {
                 child: TextFormField(
                   maxLength: 6,
                   controller: passwordController,
-                  obscureText: isHidden,
                   decoration: InputDecoration(
                     hintText: "PASSWORD...",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     prefixIcon: Icon(Icons.vpn_key),
+
                     suffixIcon: IconButton(
                       icon: isHidden ? Icon(Icons.visibility_off):Icon(Icons.visibility),
                       onPressed: togglePasswordVisibility,
                     )
                   ),
-                //  keyboardType: TextInputType.visiblePassword,
+                  obscureText:isHidden,
+                 // keyboardType: TextInputType.visiblePassword,
                   validator: (password)=> password!=null&&password.length <6
                       ?'Enter Minimum 6 Characters'
                       :null,
