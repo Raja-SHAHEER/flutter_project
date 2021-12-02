@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
@@ -8,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 import 'package:universal_html/html.dart' show AnchorElement;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'main.dart';
+import '../main.dart';
 
 class Observation extends StatefulWidget {
   @override
@@ -28,50 +27,62 @@ class _Observation extends State<Observation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 8,
+      ),
       body: SingleChildScrollView(
-          child: DataTable(
-              sortColumnIndex: 0,
-              showBottomBorder: true,
-              dividerThickness: 5.0,
-              sortAscending: true,
-              border: TableBorder.all(),
-              // border:TableBorder(
-              //     horizontalInside: BorderSide(color: Colors.blue.shade400),
-              //     right: BorderSide(color: Colors.blue.shade400),),
-              columns: [
-                DataColumn(
-                    label: Text("ID",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18))),
-                // DataColumn(label: Text(''),),
-                DataColumn(
-                    label: Text("Name",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18))),
-                // DataColumn(label: Text(''),),
-                DataColumn(
-                    label: Text("Total Retailers",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18))),
-                // DataColumn(label: Text(''),),
-                DataColumn(
-                    label: Text("Ice Breaker",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18))),
-                // DataColumn(label: Text(''),),
-                DataColumn(
-                    label: Text("Quiz",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18))),
-                // DataColumn(label: Text(''),),
-                DataColumn(
-                    label: Text("Packaging Ratings",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18))),
-                // DataColumn(label: Text(''),),
-              ],
-              rows: _rowList2)),
+          child: Center(
+            child: DataTable(
+                sortColumnIndex: 0,
+                showBottomBorder: true,
+                dividerThickness: 5.0,
+                dataRowHeight: 45,
+                headingRowHeight: 45,
+                sortAscending: true,
+                border: TableBorder.all(),
+                // border:TableBorder(
+                //     horizontalInside: BorderSide(color: Colors.blue.shade400),
+                //     right: BorderSide(color: Colors.blue.shade400),),
+                columns: [
+                  DataColumn(
+                      label: Text("ID",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18))),
+                  // DataColumn(label: Text(''),),
+                  DataColumn(
+                      label: Text("Name",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18,))),
+                  // DataColumn(label: Text(''),),
+                  DataColumn(
+                      label: Text("Total Retailers",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18))),
+                  // DataColumn(label: Text(''),),
+                  DataColumn(
+                      label: Text("Ice Breaker",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18))),
+                  // DataColumn(label: Text(''),),
+                  DataColumn(
+                      label: Text("Quiz",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18))),
+                  // DataColumn(label: Text(''),),
+                  DataColumn(
+                      label: Text("Packaging Ratings",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18))),
+                  // DataColumn(label: Text(''),),
+                  DataColumn(
+                      label: Text("Packaging Ratings",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18))),
+                ],
+                rows: _rowList2),
+          )),
     );
   }
 
@@ -82,8 +93,7 @@ class _Observation extends State<Observation> {
   }
 
   Future<void> firebasedata() async {
-
-    fStore!.collection("Observation").get().then((querySnapshot) {
+    fStore!.collection("Users").get().then((querySnapshot) {
       _rowList2.clear();
       querySnapshot.docs.forEach((result) {
         ObValue1 = (result.data()["autoRetailerId"]);
@@ -97,34 +107,46 @@ class _Observation extends State<Observation> {
           // DataCell(Text(Value1 ?? '')),
           DataCell(Container(
               constraints: BoxConstraints(maxWidth: 200),
+              width: 100,
+              // margin: EdgeInsets.symmetric(
+              //     horizontal: MediaQuery.of(context).size.width / 22,),
+              child: Text(ObValue1 ?? "", overflow: TextOverflow.ellipsis,textAlign: TextAlign.left))),
+          // DataCell(VerticalDivider(thickness: 5,)),
+          DataCell(Container(
+              constraints: BoxConstraints(maxWidth: 200),
+              width: 120,
+              // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context)
+              child: Text(ObValue2 ?? "", overflow: TextOverflow.ellipsis,textAlign: TextAlign.left,))),
+          // DataCell(VerticalDivider(thickness: 5,)),
+          DataCell(Container(
+              constraints: BoxConstraints(maxWidth: 200),
               width: 150,
-              child: Text(ObValue1 ?? "", overflow: TextOverflow.ellipsis))),
-          // DataCell(VerticalDivider(thickness: 5,)),
-          DataCell(Container(
-              constraints: BoxConstraints(maxWidth: 200),
-              width: 170,
-              child: Text(ObValue2 ?? "", overflow: TextOverflow.ellipsis))),
-          // DataCell(VerticalDivider(thickness: 5,)),
-          DataCell(Container(
-              constraints: BoxConstraints(maxWidth: 200),
-              width: 165,
+              // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 22,),
               child: Text(ObValue3 ?? "", overflow: TextOverflow.ellipsis))),
           // DataCell(VerticalDivider(thickness: 5,)),
           DataCell(Container(
               constraints: BoxConstraints(maxWidth: 200),
-              width: 200,
+              width: 150,
+              // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 22,),
               child: Text(ObValue4 ?? "", overflow: TextOverflow.ellipsis))),
           // DataCell(VerticalDivider(thickness: 5,)),
           DataCell(Container(
               constraints: BoxConstraints(maxWidth: 200),
-              width: 200,
+              width: 150,
+              // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 22,),
               child: Text(ObValue5 ?? "", overflow: TextOverflow.ellipsis))),
           // DataCell(VerticalDivider(thickness: 5,)),
           DataCell(Container(
               constraints: BoxConstraints(maxWidth: 200),
               width: 150,
+              // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 22,),
               child: Text(ObValue6 ?? "", overflow: TextOverflow.ellipsis))),
           // DataCell(VerticalDivider(thickness: 5,)),
+          DataCell(Container(
+              constraints: BoxConstraints(maxWidth: 200),
+              width: 150,
+              // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 22,),
+              child: Text(ObValue6 ?? "", overflow: TextOverflow.ellipsis))),
         ]));
       });
       setState(() {
@@ -143,13 +165,13 @@ class _Observation extends State<Observation> {
     if (kIsWeb) {
       AnchorElement(
           href:
-          'data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}')
+              'data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}')
         ..setAttribute('download', 'Jp Survey Summery.xlsx')
         ..click();
     } else {
       final String path = (await getApplicationSupportDirectory()).path;
       final String fileName =
-      Platform.isWindows ? '$path\\Output.xlsx' : '$path/Output.xlsx';
+          Platform.isWindows ? '$path\\Output.xlsx' : '$path/Output.xlsx';
       final File file = File(fileName);
       await file.writeAsBytes(bytes, flush: true);
       OpenFile.open(fileName);

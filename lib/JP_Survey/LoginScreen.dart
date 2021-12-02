@@ -141,8 +141,7 @@ class _MainScreenState extends State<LoginScreen> {
                             );
 
                         if(form.validate()){
-                            ScaffoldMessenger.of(context)
-                                ..removeCurrentSnackBar();
+                            ScaffoldMessenger.of(context)..removeCurrentSnackBar();
                                 // ..showSnackBar(SnackBar(
                                 //   content: Text('your email is $email'),
                                 // ));
